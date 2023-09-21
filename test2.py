@@ -11,19 +11,19 @@ conn = psycopg2.connect(
 )
 #Creating a cursor object using the cursor() method
 cursor = conn.cursor()
-
-for i in range(5):
+cursor.execute("SELECT order_id FROM order_items")
+for row in cursor.fetchall():
 	
 	#Executing an MYSQL function using the execute() method
-	cursor.execute("SELECT order_id FROM order_items")
+	#cursor.execute("SELECT order_id FROM order_items")
 
 	# Fetch a single row using fetchone() method.
-	data = cursor.fetchone()
-	lit.append(str(data[0]))
+	
+	line=(str(row[0]))
 	
 	
-	REQUEST_DATA_DICT={"order_id":lit[i]}
-
+	REQUEST_DATA_DICT={"order_id":line}
+	
 	RESPONSE_OBJ=requests.post(url=DELIVERY_INFO,headers=HEADER_DICT,json=REQUEST_DATA_DICT)
 
 	print(json.dumps(RESPONSE_OBJ.json(),indent=4))
