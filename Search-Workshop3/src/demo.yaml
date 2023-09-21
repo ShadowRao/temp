@@ -1,0 +1,106 @@
+openapi: 3.0.2
+
+info:
+  title: Student API
+  description: "List of APIs"
+  termsOfService: https://mine.com/terms-of-service
+
+  contact:
+   name: Shadwal
+   url: https://mine.com
+   email: test@gmail.com
+
+  version: 1.0
+
+servers:
+    - url : https://api.test.com
+      description: Endpoint to fetch api responses
+
+    - url : https://api.test.com
+      description: Endpoint to fetch api responses  
+    
+paths:
+  /student: 
+    parameters: []
+    put:
+      operationId: CreateStudent
+      description: Creates the student info
+      summary: Create student
+      requestBody:
+        description: Request Data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StudentCreateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+                
+
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+
+    get:
+      operationId: FetchStudent
+      description: Fetches the student info
+      summary: Fetch student
+
+components:
+  schemas:
+    StudentCreateRequest:
+      type: object
+      properties:
+        studentId:
+          type: string
+          minlength: 0
+          maxlength: 10
+          nullable: False
+          example: 1
+        name:
+          type: string
+          minlength: 0
+          maxlength: 10
+          nullable: False
+          example: "Shadwal"
+        Age:
+          type: number
+          minlength: 0
+          maxlength: 10
+          nullable: False
+          example: 21
+        
+      required:
+        - studentId
+
+    Success:
+      title: Success
+      type: object
+      description: Added the data
+      properties:
+        message:
+          type: string
+          description: Request was successful
+          example: "Working"
+          minlength: 1
+          maxlength: 10
+    
+    BadRequest:
+      title: Bad request
+      type: object
+      description: Added the data
+      properties:
+        message:
+          type: string
+          description: Request was successful
+          example: "BadRequest"
+          minlength: 1
+          maxlength: 10
+
